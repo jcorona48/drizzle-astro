@@ -1,6 +1,6 @@
-import type { APIRoute } from "astro";
-import { usersTable } from "@/db/schema/user.schema";
 import { db } from "@/db/config";
+import { usersTable } from "@/db/schema/user.schema";
+import type { APIRoute } from "astro";
 import { eq } from "drizzle-orm";
 
 export const prerender = false;

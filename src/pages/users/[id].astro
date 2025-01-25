@@ -1,20 +1,14 @@
 ---
 import Card from "@/components/Card/profile.astro";
-import Layout from "@/layouts/Layout.astro";
 import ArrowLeft from "@/icons/arrow-left.astro";
-import { GET as getUsers } from "@/pages/api/users";
+import Layout from "@/layouts/Layout.astro";
+import { GET as getUser } from "@/pages/api/users/[id]";
 import type { User } from "@/schemas/user";
 
-export const getStaticPaths = async () => {
-    const response = await getUsers(Astro);
-    const users = (await response.json()) as User[];
-    return users.map((user) => ({
-        params: { id: user.id.toString() },
-        props: { user },
-    }));
-};
+export const prerender = false;
 
-const { user } = Astro.props;
+const response = await getUser(Astro);
+const user = (await response.json()) as User;
 ---
 
 <Layout title="User">

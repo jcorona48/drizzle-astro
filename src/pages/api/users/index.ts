@@ -1,19 +1,19 @@
-import type { APIRoute } from "astro";
-import { usersTable, type InsertUser } from "@/db/schema/user.schema";
 import { db } from "@/db/config";
-import { eq } from "drizzle-orm";
+import { usersTable } from "@/db/schema/user.schema";
 import { userSchema } from "@/schemas/user";
+import type { APIRoute } from "astro";
+import { eq } from "drizzle-orm";
 
 const schema = userSchema.omit({ id: true });
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ request, params }) => {
+export const GET: APIRoute = async () => {
     const users = await db.query.usersTable.findMany();
     return new Response(JSON.stringify(users));
 };
 
-export const POST: APIRoute = async ({ request, params }) => {
+export const POST: APIRoute = async ({ request }) => {
     try {
         const user = schema.parse(await request.json());
 

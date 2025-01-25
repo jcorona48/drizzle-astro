@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSchema } from "@/schemas/user";
 import { createUser } from "@/services/users/users.service";
+import { toast } from "react-toastify";
 
 const schema = userSchema.omit({ id: true });
 
@@ -16,7 +17,11 @@ export default function Form() {
     });
 
     const onSubmit = async (data: z.infer<typeof schema>) => {
-        const response = await createUser(data);
+        await toast.promise(createUser(data), {
+            pending: "Creating user...",
+            success: "User created successfully",
+            error: "Error creating user",
+        });
     };
 
     const isDisabled = Object.keys(errors).length > 0 || isSubmitting;
