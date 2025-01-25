@@ -1,0 +1,59 @@
+---
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const { lang: tLang } = useTranslations(lang);
+
+const currentPath = Astro.url.pathname;
+const currentPathWithoutLang = currentPath.startsWith(`/${lang}`)
+    ? currentPath.replace(`/${lang}`, "")
+    : currentPath;
+---
+
+<label for="lang" class="flex relative" transition:name="lang">
+    <span
+        class="bg-white dark:bg-gray-800 p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700"
+    >
+        {languages[lang]}
+    </span>
+    <input type="checkbox" id="lang" class="hidden peer" />
+
+    <ul
+        class="flex-col gap-2 absolute top-full right-0 peer-checked:flex hidden mt-2 z-20 bg-white dark:bg-gray-800 rounded-md p-2 border border-gray-200 dark:border-gray-700"
+    >
+        {
+            Object.keys(languages).map((l) => {
+                const langKey = l as keyof typeof languages;
+                const isCurrentLang = langKey === lang;
+
+                const href = isCurrentLang
+                    ? currentPathWithoutLang
+                    : `/${langKey}${currentPathWithoutLang}`;
+
+                return (
+                    <li
+                        class={`p-2 rounded-md ${
+                            isCurrentLang
+                                ? "text-gray-500 dark:text-gray-400 dark:bg-gray-700 bg-gray-200"
+                                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300 cursor-pointer"
+                        }`}
+                    >
+                        {isCurrentLang ? (
+                            <span class="text-gray-500 dark:text-gray-400">
+                                {tLang[langKey]}
+                            </span>
+                        ) : (
+                            <a
+                                href={href}
+                                class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300"
+                            >
+                                {tLang[langKey]}
+                            </a>
+                        )}
+                    </li>
+                );
+            })
+        }
+    </ul>
+</label>

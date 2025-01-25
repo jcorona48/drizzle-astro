@@ -1,0 +1,41 @@
+---
+import Card from "@/components/Card/index.astro";
+import Plus from "@/icons/plus.astro";
+import Layout from "@/layouts/Layout.astro";
+import { GET } from "@/pages/api/users";
+import type { User } from "@/schemas/user";
+import Link from "@/components/Link/index.astro";
+import { useTranslations } from "@/i18n/utils";
+import { getLangFromUrl } from "@/i18n/utils";
+import Setting from "@/components/Setting/index.astro";
+
+export const prerender = false;
+
+const lang = getLangFromUrl(Astro.url);
+const { users: tUsers } = useTranslations(lang);
+
+const response = await GET(Astro);
+const users = (await response.json()) as User[];
+---
+
+<Layout title={tUsers.meta.title} description={tUsers.meta.description}>
+    <Setting />
+    <div class="flex flex-col gap-2 items-center">
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mt-4">
+            {tUsers.list.title}
+        </h1>
+    </div>
+    <section
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8 px-4"
+    >
+        {users.map((user) => <Card {...user} />)}
+    </section>
+    <div class="absolute bottom-4 right-4">
+        <Link
+            href="/users/add"
+            class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white"
+        >
+            <Plus />
+        </Link>
+    </div>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getLangFromUrl } from "@/i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const lang = getLangFromUrl(Astro.url);
+
+interface Props extends HTMLAttributes<"a"> {
+    href: string;
+}
+
+const { href, ...props } = Astro.props;
+---
+
+<a {...props} href={getRelativeLocaleUrl(lang, href)}>
+    <slot />
+</a>

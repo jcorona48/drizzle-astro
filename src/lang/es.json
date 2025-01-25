@@ -1,0 +1,69 @@
+{
+    "welcome": {
+        "title": "Bienvenido a la prueba de Drizzle con Astro",
+        "description": "Esta es una demostración simple para explorar Drizzle y Astro. Click el botón de abajo para acceder a la funcionalidad de usuarios.",
+        "button": "Ir a Usuarios",
+        "meta": {
+            "title": "Bienvenido a la prueba de Drizzle con Astro",
+            "description": "Esta es una demostración simple para explorar Drizzle y Astro. Click el botón de abajo para acceder a la funcionalidad de usuarios."
+        }
+    },
+    "users": {
+        "list": {
+            "title": "Usuarios"
+        },
+        "card": {
+            "name": "Nombre",
+            "email": "Correo",
+            "age": "Edad",
+            "goToProfile": "Ir al perfil"
+        },
+        "form": {
+            "name": "Nombre",
+            "email": "Correo",
+            "age": "Edad",
+            "submit": "Enviar",
+            "toast": {
+                "submitting": "Creando usuario...",
+                "success": "Usuario creado correctamente",
+                "error": "Error al crear usuario"
+            },
+            "validation": {
+                "name": {
+                    "min": "El nombre debe tener al menos {{count}} caracteres",
+                    "required": "El nombre es requerido"
+                },
+                "email": {
+                    "invalid": "El correo electrónico no es válido",
+                    "required": "El correo electrónico es requerido"
+                },
+                "age": {
+                    "min": "Debes tener al menos {{count}} años",
+                    "required": "La edad es requerida",
+                    "number": "La edad debe ser un número"
+                }
+            }
+        },
+        "meta": {
+            "title": "Usuarios",
+            "description": "Esta es una lista de usuarios"
+        }
+    },
+    "user": {
+        "meta": {
+            "title": "Usuario {{name}}",
+            "description": "Esta es la página de {{name}}"
+        }
+    },
+    "form": {
+        "meta": {
+            "title": "Agregar Usuario",
+            "description": "Esta es una página para agregar un usuario"
+        }
+    },
+    "lang": {
+        "title": "Idioma",
+        "en": "Inglés",
+        "es": "Español"
+    }
+}

@@ -1,25 +1,33 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Link from "@/components/Link/index.astro";
+import Setting from "@/components/Setting/index.astro";
+const lang = getLangFromUrl(Astro.url);
+const { welcome: tWelcome } = useTranslations(lang);
+---
+
 <section
-    class="flex flex-col items-center justify-center min-h-screen gap-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8"
+    class="flex flex-col items-center justify-center flex-1 gap-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 text-gray-900 dark:text-gray-100 px-4 sm:px-6 lg:px-8"
 >
+    <Setting />
     <div
         class="text-center max-w-md w-full p-6 sm:p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl shadow-2xl"
     >
         <h1
             class="text-3xl sm:text-4xl font-extrabold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300"
         >
-            Welcome to the Drizzle and Astro Demo
+            {tWelcome.title}
         </h1>
         <p
             class="text-base sm:text-lg mb-4 sm:mb-6 text-gray-700 dark:text-gray-300"
         >
-            This is a simple demonstration to explore Drizzle and Astro. Click
-            the button below to access the user functionality.
+            {tWelcome.description}
         </p>
-        <a
+        <Link
             href="/users"
             class="px-5 py-3 sm:px-6 sm:py-3 bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all"
         >
-            Go to Users
-        </a>
+            {tWelcome.button}
+        </Link>
     </div>
 </section>
