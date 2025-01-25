@@ -2,8 +2,11 @@
 import Form from "@/components/Form/index.tsx";
 import ArrowLeft from "@/icons/arrow-left.astro";
 import Layout from "@/layouts/Layout.astro";
+import { ToastContainer } from "react-toastify";
 
 export const prerender = true;
+
+const theme = "dark";
 ---
 
 <Layout title="Add User">
@@ -18,4 +21,10 @@ export const prerender = true;
     <section class="flex flex-col gap-2 items-center justify-center h-screen">
         <Form client:visible />
     </section>
+    <ToastContainer
+        theme={theme}
+        position="top-right"
+        autoClose={5000}
+        client:load
+    />
 </Layout>
