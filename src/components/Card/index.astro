@@ -1,0 +1,29 @@
+---
+import type { User } from "@/db/schema/user.schema";
+
+interface Props extends User {}
+
+const { name, email, age, id } = Astro.props;
+---
+
+<article
+    class="bg-white p-4 rounded-md shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 dark:bg-gray-800 dark:text-white relative"
+>
+    <h1 class="text-2xl font-bold" transition:name={`title-${id}`}>
+        {name}
+    </h1>
+    <p class="text-gray-500 dark:text-gray-400" transition:name={`email-${id}`}>
+        <span class="font-bold">Email:</span>
+        {email}
+    </p>
+    <p class="text-gray-500 dark:text-gray-400" transition:name={`age-${id}`}>
+        <span class="font-bold">Age:</span>
+        {age}
+    </p>
+    <a
+        href={`/users/${id}`}
+        class="after:content-[''] after:absolute after:inset-0"
+    >
+        <span class="sr-only">Go to profile {name}</span>
+    </a>
+</article>

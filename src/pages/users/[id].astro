@@ -1,0 +1,30 @@
+---
+import Card from "@/components/Card/profile.astro";
+import Layout from "@/layouts/Layout.astro";
+import ArrowLeft from "@/icons/arrow-left.astro";
+import { GET as getUsers } from "@/pages/api/users";
+import type { User } from "@/schemas/user";
+
+export const getStaticPaths = async () => {
+    const response = await getUsers(Astro);
+    const users = (await response.json()) as User[];
+    return users.map((user) => ({
+        params: { id: user.id.toString() },
+        props: { user },
+    }));
+};
+
+const { user } = Astro.props;
+---
+
+<Layout title="User">
+    <div class="absolute top-4 left-4">
+        <a
+            href="/users/"
+            class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white"
+        >
+            <ArrowLeft />
+        </a>
+    </div>
+    <Card {...user} />
+</Layout>

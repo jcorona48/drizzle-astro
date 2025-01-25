@@ -1,0 +1,19 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Form from "@/components/Form/index.tsx";
+import ArrowLeft from "@/icons/arrow-left.astro";
+---
+
+<Layout title="Add User">
+    <div class="absolute top-4 left-4">
+        <a
+            href="/users"
+            class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white hover:bg-blue-600 hover:text-white transition-all duration-300 dark:hover:bg-blue-700"
+        >
+            <ArrowLeft />
+        </a>
+    </div>
+    <section class="flex flex-col gap-2 items-center justify-center h-screen">
+        <Form client:visible />
+    </section>
+</Layout>
