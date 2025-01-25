@@ -1,0 +1,69 @@
+{
+    "welcome": {
+        "title": "Welcome to the Drizzle and Astro Demo",
+        "description": "This is a simple demonstration to explore Drizzle and Astro. Click the button below to access the user functionality.",
+        "button": "Go to Users",
+        "meta": {
+            "title": "Welcome to the Drizzle and Astro Demo",
+            "description": "This is a simple demonstration to explore Drizzle and Astro. Click the button below to access the user functionality."
+        }
+    },
+    "users": {
+        "list": {
+            "title": "Users"
+        },
+        "card": {
+            "name": "Name",
+            "email": "Email",
+            "age": "Age",
+            "goToProfile": "Go to profile"
+        },
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "age": "Age",
+            "submit": "Submit",
+            "toast": {
+                "submitting": "Creating user...",
+                "success": "User created successfully",
+                "error": "Error creating user"
+            },
+            "validation": {
+                "name": {
+                    "min": "Name must be at least {{count}} characters",
+                    "required": "Name is required"
+                },
+                "email": {
+                    "invalid": "Invalid email address",
+                    "required": "Email is required"
+                },
+                "age": {
+                    "min": "You must be at least {{count}} years old",
+                    "required": "Age is required",
+                    "number": "Age must be a number"
+                }
+            }
+        },
+        "meta": {
+            "title": "Users",
+            "description": "This is a list of users"
+        }
+    },
+    "user": {
+        "meta": {
+            "title": "User {{name}}",
+            "description": "This is the page of {{name}}"
+        }
+    },
+    "form": {
+        "meta": {
+            "title": "Add User",
+            "description": "This is a form to add a user"
+        }
+    },
+    "lang": {
+        "title": "Language",
+        "en": "English",
+        "es": "Spanish"
+    }
+}

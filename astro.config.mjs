@@ -12,4 +12,12 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   adapter: vercel(),
   output: 'server',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      strategy: 'pathname',
+      prefixDefaultLocale: true,
+    },
+  },
 });

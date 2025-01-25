@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from "astro";
+import Form from "@/components/Form/index.tsx";
+import ArrowLeft from "@/icons/arrow-left.astro";
+import Layout from "@/layouts/Layout.astro";
+import { ToastContainer } from "react-toastify";
+import Link from "@/components/Link/index.astro";
+import { languages } from "@/i18n/ui";
+import { useTranslations, getLangFromUrl } from "@/i18n/utils";
+import Setting from "@/components/Setting/index.astro";
+export const prerender = false;
+
+const lang = getLangFromUrl(Astro.url);
+const { form: tForm } = useTranslations(lang);
+
+const theme = Astro.cookies.get("color-theme")?.value || "dark";
+---
+
+<Layout title={tForm.meta.title} description={tForm.meta.description}>
+    <Setting />
+    <div class="absolute top-4 left-4 z-30">
+        <Link
+            href="/users"
+            class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white hover:bg-blue-600 hover:text-white transition-all duration-300 dark:hover:bg-blue-700"
+        >
+            <ArrowLeft />
+        </Link>
+    </div>
+    <section
+        class="flex flex-col gap-2 items-center justify-center flex-1 px-4"
+    >
+        <Form client:visible lang={lang as keyof typeof languages} />
+    </section>
+    <ToastContainer
+        theme={theme}
+        position="top-right"
+        autoClose={5000}
+        client:load
+    />
+</Layout>

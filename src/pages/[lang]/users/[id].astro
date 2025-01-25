@@ -1,0 +1,39 @@
+---
+import Card from "@/components/Card/profile.astro";
+import ArrowLeft from "@/icons/arrow-left.astro";
+import Layout from "@/layouts/Layout.astro";
+import { GET as getUser } from "@/pages/api/users/[id]";
+import type { User } from "@/schemas/user";
+import Link from "@/components/Link/index.astro";
+import { useTranslations } from "@/i18n/utils";
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl } from "@/i18n/utils";
+import Setting from "@/components/Setting/index.astro";
+
+interface Props {
+    lang: keyof typeof languages;
+}
+
+export const prerender = false;
+
+const response = await getUser(Astro);
+const user = (await response.json()) as User;
+const lang = getLangFromUrl(Astro.url);
+const { user: tUser } = useTranslations(lang);
+---
+
+<Layout
+    title={tUser.meta.title.replace("{{name}}", user.name)}
+    description={tUser.meta.description.replace("{{name}}", user.name)}
+>
+    <Setting />
+    <div class="absolute top-4 left-4 z-30">
+        <Link
+            href="/users/"
+            class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white"
+        >
+            <ArrowLeft />
+        </Link>
+    </div>
+    <Card {...user} />
+</Layout>

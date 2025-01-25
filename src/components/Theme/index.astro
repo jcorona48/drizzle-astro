@@ -1,0 +1,50 @@
+---
+import Moon from "@/icons/moon.astro";
+import Sun from "@/icons/sun.astro";
+
+const theme = Astro.cookies.get("color-theme")?.value || "light";
+---
+
+<button
+    id="theme-toggle"
+    type="button"
+    class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+    transition:name="theme-toggle"
+>
+    <Moon class="size-5 hidden dark:block" />
+    <Sun class="size-5 block dark:hidden" />
+</button>
+
+<script>
+    import { getCookie, setCookie } from "@/utils/cookies";
+
+    const bindEvent = () => {
+        const themeToggleBtn = document.getElementById("theme-toggle");
+
+        themeToggleBtn?.addEventListener("click", function () {
+            if (getCookie("color-theme")) {
+                if (getCookie("color-theme") === "light") {
+                    document.documentElement.classList.add("dark");
+                    setCookie("color-theme", "dark", 7);
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    setCookie("color-theme", "light", 7);
+                }
+            } else {
+                if (document.documentElement.classList.contains("dark")) {
+                    document.documentElement.classList.remove("dark");
+                    setCookie("color-theme", "light", 7);
+                } else {
+                    document.documentElement.classList.add("dark");
+                    setCookie("color-theme", "dark", 7);
+                }
+            }
+        });
+    };
+
+    bindEvent();
+
+    document.addEventListener("astro:after-swap", () => {
+        bindEvent();
+    });
+</script>
