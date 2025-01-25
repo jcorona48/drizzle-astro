@@ -17,7 +17,7 @@ export default function Form() {
     });
 
     const onSubmit = async (data: z.infer<typeof schema>) => {
-        toast.promise(createUser(data), {
+        await toast.promise(createUser(data), {
             pending: "Creating user...",
             success: "User created successfully",
             error: "Error creating user",
