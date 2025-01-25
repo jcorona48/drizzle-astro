@@ -30,7 +30,7 @@ const users = (await response.json()) as User[];
     >
         {users.map((user) => <Card {...user} />)}
     </section>
-    <div class="absolute bottom-4 right-4">
+    <div class="fixed bottom-4 right-4">
         <Link
             href="/users/add"
             class="bg-blue-500 text-white p-4 rounded-full flex items-center justify-center dark:bg-blue-600 dark:text-white"
