@@ -1,9 +1,12 @@
 ---
 import Card from "@/components/Card/index.astro";
-import Layout from "@/layouts/Layout.astro";
 import Plus from "@/icons/plus.astro";
+import Layout from "@/layouts/Layout.astro";
 import { GET } from "@/pages/api/users";
 import type { User } from "@/schemas/user";
+
+export const prerender = false;
+
 const response = await GET(Astro);
 const users = (await response.json()) as User[];
 ---
