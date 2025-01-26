@@ -16,12 +16,14 @@
             "name": "Name",
             "email": "Email",
             "age": "Age",
+            "slug": "Slug",
             "goToProfile": "Go to profile"
         },
         "form": {
             "name": "Name",
             "email": "Email",
             "age": "Age",
+            "slug": "Slug",
             "submit": "Submit",
             "toast": {
                 "submitting": "Creating user...",
@@ -31,16 +33,25 @@
             "validation": {
                 "name": {
                     "min": "Name must be at least {{count}} characters",
-                    "required": "Name is required"
+                    "required": "Name is required",
+                    "duplicate": "Name already exists"
                 },
                 "email": {
                     "invalid": "Invalid email address",
-                    "required": "Email is required"
+                    "required": "Email is required",
+                    "duplicate": "Email already exists"
                 },
                 "age": {
                     "min": "You must be at least {{count}} years old",
                     "required": "Age is required",
-                    "number": "Age must be a number"
+                    "number": "Age must be a number",
+                    "duplicate": "Age already exists"
+                },
+                "slug": {
+                    "min": "Slug must be at least {{count}} characters",
+                    "required": "Slug is required",
+                    "regex": "Slug must contain only lowercase letters and numbers",
+                    "duplicate": "Slug already exists"
                 }
             }
         },

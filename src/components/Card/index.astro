@@ -10,7 +10,7 @@ const {
 
 interface Props extends User {}
 
-const { name, email, age, id } = Astro.props;
+const { name, email, age, id, slug } = Astro.props;
 ---
 
 <article
@@ -28,7 +28,7 @@ const { name, email, age, id } = Astro.props;
         {age}
     </p>
     <Link
-        href={`/users/${id}`}
+        href={`/users/${slug}`}
         class="after:content-[''] after:absolute after:inset-0"
     >
         <span class="sr-only">{tUsersCard.goToProfile} {name}</span>

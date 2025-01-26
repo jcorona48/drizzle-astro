@@ -1,5 +1,6 @@
 import { db } from "@/db/config";
 import { usersTable } from "@/db/schema/user.schema";
+import { validateUser } from "@/db/validate/unique";
 import { userSchema } from "@/schemas/user";
 import type { APIRoute } from "astro";
 import { eq } from "drizzle-orm";
@@ -17,10 +18,15 @@ export const POST: APIRoute = async ({ request }) => {
     try {
         const user = schema.parse(await request.json());
 
+        const { valid, error } = await validateUser(user);
+
+        if (!valid) return new Response(JSON.stringify({error}), { status: 400 });
+
         const result = await db.insert(usersTable).values({
             name: user.name,
             email: user.email,
             age: user.age,
+            slug: user.slug,
         });
 
         const newUser = await db.query.usersTable.findFirst({

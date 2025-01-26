@@ -3,6 +3,7 @@ import Form from "@/components/Form/index.tsx";
 import ArrowLeft from "@/icons/arrow-left.astro";
 import Layout from "@/layouts/Layout.astro";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const prerender = true;
 
@@ -26,5 +27,12 @@ const theme = "dark";
         position="top-right"
         autoClose={5000}
         client:load
+        transition:persist={true}
     />
 </Layout>
+
+<script>
+    document.addEventListener("astro:after-swap", () => {
+        import("react-toastify/dist/ReactToastify.css");
+    });
+</script>
