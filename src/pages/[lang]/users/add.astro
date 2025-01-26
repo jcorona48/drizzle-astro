@@ -38,3 +38,9 @@ const theme = Astro.cookies.get("color-theme")?.value || "dark";
         client:load
     />
 </Layout>
+
+<script>
+    document.addEventListener("astro:after-swap", () => {
+        import("react-toastify/dist/ReactToastify.css");
+    });
+</script>

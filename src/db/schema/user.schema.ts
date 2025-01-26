@@ -5,6 +5,7 @@ export const usersTable = sqliteTable('users', {
     name: text('name').notNull(),
     email: text('email').notNull().unique(),
     age: int('age').notNull(),
+    slug: text('slug').notNull().unique(),
 });
 
 export type User = typeof usersTable.$inferSelect;

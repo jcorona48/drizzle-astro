@@ -16,12 +16,14 @@
             "name": "Nombre",
             "email": "Correo",
             "age": "Edad",
+            "slug": "Slug",
             "goToProfile": "Ir al perfil"
         },
         "form": {
             "name": "Nombre",
             "email": "Correo",
             "age": "Edad",
+            "slug": "Slug",
             "submit": "Enviar",
             "toast": {
                 "submitting": "Creando usuario...",
@@ -31,16 +33,25 @@
             "validation": {
                 "name": {
                     "min": "El nombre debe tener al menos {{count}} caracteres",
-                    "required": "El nombre es requerido"
+                    "required": "El nombre es requerido",
+                    "duplicate": "El nombre ya existe"
                 },
                 "email": {
                     "invalid": "El correo electrónico no es válido",
-                    "required": "El correo electrónico es requerido"
+                    "required": "El correo electrónico es requerido",
+                    "duplicate": "El correo electrónico ya existe"
                 },
                 "age": {
                     "min": "Debes tener al menos {{count}} años",
                     "required": "La edad es requerida",
-                    "number": "La edad debe ser un número"
+                    "number": "La edad debe ser un número",
+                    "duplicate": "La edad ya existe"
+                },
+                "slug": {
+                    "min": "El slug debe tener al menos {{count}} caracteres",
+                    "required": "El slug es requerido",
+                    "regex": "El slug debe contener solo letras minúsculas y números",
+                    "duplicate": "El slug ya existe"
                 }
             }
         },

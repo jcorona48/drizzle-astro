@@ -5,8 +5,9 @@ import { userSchema } from "@/schemas/user";
 import { createUser } from "@/services/users/users.service";
 import { toast } from "react-toastify";
 import { defaultLang, languages } from "@/i18n/ui";
-import { useTranslations, getLangFromUrl } from "@/i18n/utils";
-
+import { useTranslations } from "@/i18n/utils";
+import { useEffect, useState } from "react";
+import { slugify } from "@/utils/slugify";
 interface FormProps {
     lang?: keyof typeof languages;
 }
@@ -43,22 +44,55 @@ export default function Form({ lang = defaultLang }: FormProps) {
                     "18"
                 ),
             }),
+        slug: z
+            .string({
+                required_error: tUsersForm.validation.slug.required,
+            })
+            .min(3, {
+                message: tUsersForm.validation.slug.min.replace(
+                    "{{count}}",
+                    "3"
+                ),
+            })
+            .regex(/^[a-z0-9-]+$/, {
+                message: tUsersForm.validation.slug.regex,
+            }),
     });
 
     const {
         register,
         handleSubmit,
+        watch,
+        setValue,
+        trigger,
+        setError,
         formState: { errors, isSubmitting, isSubmitted },
     } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 
+    const name = watch("name");
+
+    useEffect(() => {
+        setValue("slug", slugify(name));
+        if (name && isSubmitted) trigger("slug");
+    }, [name, setValue]);
+
     const onSubmit = async (data: z.infer<typeof schema>) => {
-        await toast.promise(createUser(data), {
-            pending: tUsersForm.toast.submitting,
-            success: tUsersForm.toast.success,
-            error: tUsersForm.toast.error,
-        });
+        try {
+            await toast.promise(createUser(data), {
+                pending: tUsersForm.toast.submitting,
+                success: tUsersForm.toast.success,
+                error: tUsersForm.toast.error,
+            });
+        } catch (error) {
+            Object.keys(error as Record<string, unknown>).forEach((key) => {
+                const validationKey = key as keyof typeof tUsersForm.validation;
+                setError(validationKey, {
+                    message: tUsersForm.validation[validationKey].duplicate,
+                });
+            });
+        }
     };
 
     const isDisabled = Object.keys(errors).length > 0 || isSubmitting;
@@ -132,6 +166,20 @@ export default function Form({ lang = defaultLang }: FormProps) {
                 />
                 {errors.age && (
                     <p className="text-red-500">{errors.age.message}</p>
+                )}
+            </div>
+            <div className="flex flex-col gap-2">
+                <label htmlFor="slug" className={labelClasses("slug")}>
+                    {tUsersForm.slug}
+                </label>
+                <input
+                    {...register("slug")}
+                    placeholder={tUsersForm.slug}
+                    type="text"
+                    className={inputClasses("slug")}
+                />
+                {errors.slug && (
+                    <p className="text-red-500">{errors.slug.message}</p>
                 )}
             </div>
             <button
