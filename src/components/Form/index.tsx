@@ -85,6 +85,8 @@ export default function Form({ lang = defaultLang }: FormProps) {
                 success: tUsersForm.toast.success,
                 error: tUsersForm.toast.error,
             });
+
+            window.location.href = `${lang}/users`;
         } catch (error) {
             Object.keys(error as Record<string, unknown>).forEach((key) => {
                 const validationKey = key as keyof typeof tUsersForm.validation;
